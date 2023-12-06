@@ -48,19 +48,19 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this._http.post(`${this._apiUrl}api/auth/token/login`, {
+    return this._http.post(`${this._apiUrl}auth/token/login`, {
       'email': email,
       'password': password
     });
   }
 
   refreshToken() {
-    return this._http.post(`${this._apiUrl}api/auth/token/refresh`, {
+    return this._http.post(`${this._apiUrl}auth/token/refresh`, {
       'refreshToken': this.getRefreshToken(),
     });
   }
 
   getCurrentUser(): Observable<any> {
-    return this._http.get(`${this._apiUrl}api/users/me`);
+    return this._http.get(`${this._apiUrl}users/me`);
   }
 }

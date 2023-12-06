@@ -13,30 +13,30 @@ export class CategoryService {
   constructor(private _http: HttpClient) { }
 
   getList(page: number = 1): Observable<any> {
-    return this._http.get(`${this._apiUrl}api/word-categories?page=${page}`);
+    return this._http.get(`${this._apiUrl}word-categories?page=${page}`);
   }
 
   create(name: string): Observable<any> {
-    return this._http.post(`${this._apiUrl}api/word-categories`, {
+    return this._http.post(`${this._apiUrl}word-categories`, {
       'name': name
     });
   }
 
   update(id: string, name: string): Observable<any> {
-    return this._http.put(`${this._apiUrl}api/word-categories/${id}`, {
+    return this._http.put(`${this._apiUrl}word-categories/${id}`, {
       'name': name
     });
   }
 
   show(id: string): Observable<any> {
-    return this._http.get(`${this._apiUrl}api/word-categories/${id}`);
+    return this._http.get(`${this._apiUrl}word-categories/${id}`);
   }
 
   getCategoryWords(id: string, page: number = 1): Observable<any> {
-    return this._http.get(`${this._apiUrl}api/word-categories/${id}/words`);
+    return this._http.get(`${this._apiUrl}word-categories/${id}/words`);
   }
 
   delete(ids: []): Observable<any> {
-    return this._http.delete(`${this._apiUrl}api/word-categories?ids=` + ids.join(','));
+    return this._http.delete(`${this._apiUrl}word-categories?ids=` + ids.join(','));
   }
 }
