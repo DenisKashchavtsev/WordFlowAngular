@@ -1,0 +1,6 @@
+<div class="form-group">
+  <label>{{ label }}</label>
+  <input type="text" [(ngModel)]="value" [placeholder]="placeholder" (input)="onInput()" [disabled]="disabled" />
+
+  inside: {{ value }}
+</div>

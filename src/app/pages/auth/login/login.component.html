@@ -1,0 +1,17 @@
+<p>login works!</p>
+
+<form [formGroup]="loginForm" novalidate (submit)="submit()">
+
+  <app-input-text
+    [label]="'Email'"
+    formControlName="email"
+  ></app-input-text>
+
+  <app-input-text
+    [label]="'Password'"
+    formControlName="password"
+  ></app-input-text>
+
+  <app-input-submit></app-input-submit>
+
+</form>

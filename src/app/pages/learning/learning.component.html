@@ -1,0 +1,24 @@
+<p>learning works!</p>
+
+
+<div *ngIf="categoriesPaginator$ | async as paginator">
+  <div *ngFor="let category of paginator.data">
+
+    <a [routerLink]="['/category', category.id]">
+      ShowCategory : {{ category.name }}
+    </a>
+    <a [routerLink]="['/learn-category', category.id]">
+      LearnCategory : {{ category.name }}
+    </a>
+  </div>
+  <br>
+</div>
+
+
+case MATCH_TRANSLATION = 1;
+
+case CHOOSE_CORRECT_OPTION = 2;
+
+case CHOOSE_LETTERS = 3;
+
+case WRITE = 4;

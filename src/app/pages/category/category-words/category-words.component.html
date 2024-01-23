@@ -1,0 +1,11 @@
+<p>category-words works!</p>
+
+<div *ngIf="category$ | async as category">
+  {{ category | json }}
+</div>
+
+<div *ngIf="wordsPaginator$ | async as paginator">
+  <div *ngFor="let word of paginator.data">
+    {{ word | json }}
+  </div>
+</div>
