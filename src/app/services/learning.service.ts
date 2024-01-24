@@ -15,4 +15,11 @@ export class LearningService {
   getCategoryWords(id: string): Observable<any> {
     return this._http.get(`${this._apiUrl}api/learn-category/${id}`);
   }
+
+  addLearningHistory(wordId: string, step: number): Observable<any> {
+    return this._http.post(`${this._apiUrl}api/learning-histories`, {
+      'word_id': wordId,
+      'step': step
+    });
+  }
 }

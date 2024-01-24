@@ -1,10 +1,15 @@
 <p>match-translation works!</p>
 
-{{ words | json}}
+{{ currentWord?.source }}
 <br>
 <br>
-<br>
-<br>
-<br>
-<h1>Current word</h1>
-{{ currentWord | json}}
+
+<div *ngFor="let variant of currentWord?.variants">
+  <button (click)="selectVariant(variant)"
+          [ngClass]="{
+          'success': answerStatuses && answerStatuses.variant === variant && answerStatuses.status,
+          'danger': answerStatuses && answerStatuses.variant === variant && !answerStatuses.status
+        }">
+    {{ variant }}
+  </button>
+</div>

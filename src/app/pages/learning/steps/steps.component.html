@@ -1,4 +1,4 @@
-<p>steps works!</p>
+<!--<p>steps works!</p>-->
 
 <pre>
 {{ learnCategory$ | async | json }}
@@ -6,5 +6,4 @@
 
 <div *ngIf="learnCategory$ | async as learnCategory">
 <app-match-translation [words]="learnCategory.words" *ngIf="learnCategory.words.length"></app-match-translation>
-
 </div>
