@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+.learning {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .step {
+    .source_word {
+      font-size: 20px;
+      color: #4B4B4B;
+      font-weight: bold;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .btn_select_variant {
+      font-size: 16px;
+      border-radius: 15px;
+      background-color: transparent;
+      border: 1px solid #F9AD2B;
+      color: #4B4B4B;
+      padding: 20px 30px;
+      margin-bottom: 15px;
+      min-width: 300px;
+      transition: .3s;
+
+      &.success {
+        border: 1px solid #abe3b0;
+        background-color: #abe3b0;
+      }
+
+      &.danger {
+        border: 1px solid #ffc7c7;
+        background-color: #ffc7c7;
+      }
+
+    }
+  }
+}
+
+.btn_next {
+  font-size: 16px;
+  border-radius: 15px;
+  background-color: #F9AD2B;
+  border: 1px solid #F9AD2B;
+  color: #4B4B4B;
+  padding: 20px 30px;
+  margin-bottom: 15px;
+  min-width: 300px;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}

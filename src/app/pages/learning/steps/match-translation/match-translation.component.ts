@@ -1,7 +1,7 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {JsonPipe, NgClass, NgForOf} from "@angular/common";
 import {WordLearn} from "../../../../models/word-learn";
-import {LearningService} from "../../../../services/learning.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-match-translation',
@@ -9,91 +9,87 @@ import {LearningService} from "../../../../services/learning.service";
   imports: [
     JsonPipe,
     NgForOf,
-    NgClass
+    NgClass,
+    FormsModule
   ],
   templateUrl: './match-translation.component.html',
   styleUrl: './match-translation.component.scss'
 })
 export class MatchTranslationComponent implements OnInit {
 
-  static readonly TIMEOUT_BETWEEN_STEPS: number = 2000;
+  @Input() wordQueue: WordLearn[] = []
+  @Output() handleStep = new EventEmitter<WordLearn>();
 
-  @Input() words: WordLearn[] = []
-  @Output() learned: boolean = false;
+  public notification: { variant: string, status: boolean } | null = null;
+  public sources: string[] = [];
+  public translations: string[] = [];
 
-  public currentWord: WordLearn | null = null;
-  public answerStatuses: { variant: string, status: boolean } | null = null;
+  public buttonSource: string | null = null;
+  public buttonTranslation: string | null = null;
 
-  constructor(private _learningService: LearningService) {
-  }
+  public nextAvailable: boolean = false;
 
   ngOnInit() {
-    if (this.words.length) {
-      this._getWord()
-    }
+    this._getVariants();
+    this.notification = null;
+    this.nextAvailable = true;
   }
 
-  private _getWord(): void {
-    for (let word of this.words) {
-      if (!word.learned) {
-        word.variants = this._getVariants()
-        this.currentWord = word;
-        return;
-      }
-    }
+  private _getVariants(): void {
+    console.log(this.wordQueue)
+    this.sources = this.wordQueue
+      .map(word => word.source)
+      .sort(() => Math.random() - 0.5);
 
-    this.currentWord = null;
-    this.learned = true;
+    this.translations = this.wordQueue
+      .map(word => word.translate)
+      .sort(() => Math.random() - 0.5);
   }
 
-  private _getVariants(): string[] {
-    return this.words.map(word => word.translate).sort(() => Math.random() - 0.5);
-  }
+  selectVariant() {
+    this.notification = null;
 
-  selectVariant(variant: string) {
-    this.answerStatuses = null
-    if (this.currentWord?.translate === variant) {
-      if (!this.currentWord.attempts) {
-        this._makeLearned()
-        this._learningService.addLearningHistory(this.currentWord.id, 1).subscribe()
+    if (this.buttonSource && this.buttonTranslation) {
+      let targetWord = this._checkAnswer()
+      if (targetWord !== null) {
+        this.sources = this.sources.filter(word => word !== this.buttonSource);
+        this.translations = this.translations.filter(word => word !== this.buttonTranslation);
+
+        targetWord.learned = true;
+        this.handleStep.emit(targetWord);
+
+        setTimeout(() => {
+          this.buttonSource = null
+          this.buttonTranslation = null
+        }, 1000)
       } else {
-        this._moveToEnd()
+        console.log('error')
+        setTimeout(() => {
+          this.buttonSource = null
+          this.buttonTranslation = null
+        }, 1000)
       }
-      this.answerStatuses = {variant: variant, status: true};
 
-      setTimeout(() => {
-        this._getWord();
-      }, MatchTranslationComponent.TIMEOUT_BETWEEN_STEPS)
-      return true;
-
+      if (!this.sources.length) {
+        this.nextAvailable = true;
+      }
     }
-    this.answerStatuses = {variant: variant, status: false};
-    this._addAttempt()
-    return false
+
+    // this.notification = {variant: variant, status: false};
+    return false;
   }
 
-  private _moveToEnd(): void {
-    this.words = this.words.filter(word => word.id !== this.currentWord?.id)
+  private _checkAnswer(): WordLearn | null {
+    let word = null;
 
-    if (this.currentWord) {
-      this.currentWord.attempts = 0;
-      this.words.push(this.currentWord)
-    }
-  }
-
-  private _addAttempt() {
-    this.words.map(word => {
-      if (word.id === this.currentWord?.id) {
-        word.attempts = word.attempts ? word.attempts + 1 : 1
+    this.wordQueue.map(w => {
+      if (w.translate === this.buttonTranslation
+        && w.source === this.buttonSource) {
+        word = w;
       }
     });
+
+    return word;
   }
 
-  private _makeLearned(): void {
-    this.words.map(word => {
-      if (word.id === this.currentWord?.id) {
-        word.learned = true
-      }
-    });
-  }
 }

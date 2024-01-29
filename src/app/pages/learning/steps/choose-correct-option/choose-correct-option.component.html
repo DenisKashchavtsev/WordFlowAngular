@@ -1,0 +1,19 @@
+<p>match-translation works!</p>
+
+<div class="step">
+  <div class="source_word"> <span>{{ targetWord?.source }}</span></div>
+
+  <div *ngFor="let variant of variants">
+    <button (click)="selectVariant(variant)"
+            [disabled]="!nextAvailable"
+            [ngClass]="{
+          'success': notification && notification.variant === variant && notification.status,
+          'danger': notification && notification.variant === variant && !notification.status
+        }" class="btn_select_variant">
+      {{ variant }}
+    </button>
+  </div>
+
+  <button [disabled]="nextAvailable" (click)="next()" class="btn_next">Next</button>
+
+</div>

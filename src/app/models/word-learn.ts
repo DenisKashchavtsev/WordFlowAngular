@@ -1,9 +1,6 @@
-export interface WordLearn {
-  id: string,
-  source: string,
-  translate: string,
-  currentStep: number | null,
+import {Word} from "./word";
+
+export interface WordLearn extends Word {
   learned: boolean | undefined,
-  variants: string[] | undefined,
-  attempts: number | undefined
+  attempts: number | undefined,
 }

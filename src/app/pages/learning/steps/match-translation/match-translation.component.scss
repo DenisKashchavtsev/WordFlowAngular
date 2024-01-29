@@ -1,6 +1,13 @@
-.danger {
-  border: 1px solid red;
-}
-.success {
-  border: 1px solid green;
+.match_translation {
+  display: flex;
+  flex-direction: column;
+
+  .block_variants {
+    display: flex;
+    gap: 15px;
+
+    .btn_select_variant {
+      display: flex;
+    }
+  }
 }

@@ -1,15 +1,20 @@
-<p>match-translation works!</p>
+<div class="step match_translation">
+  <div class="block_variants">
+    <div class="block_variants_sources">
+      <div *ngFor="let source of sources">
+        <label class="btn_select_variant">{{ source }}
+          <input type="radio" name="source" [value]="source" [(ngModel)]="buttonSource" (change)="selectVariant()">
+        </label>
+      </div>
+    </div>
 
-{{ currentWord?.source }}
-<br>
-<br>
-
-<div *ngFor="let variant of currentWord?.variants">
-  <button (click)="selectVariant(variant)"
-          [ngClass]="{
-          'success': answerStatuses && answerStatuses.variant === variant && answerStatuses.status,
-          'danger': answerStatuses && answerStatuses.variant === variant && !answerStatuses.status
-        }">
-    {{ variant }}
-  </button>
+    <div class="block_variants_translations">
+      <div *ngFor="let translate of translations">
+        <label class="btn_select_variant">{{ translate }}
+          <input type="radio" name="Translate" [value]="translate" [(ngModel)]="buttonTranslation"
+                 (change)="selectVariant()">
+        </label>
+      </div>
+    </div>
+  </div>
 </div>

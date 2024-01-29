@@ -1,9 +1,40 @@
-<!--<p>steps works!</p>-->
+<div class="learning">
+  <div *ngIf="learnCategory">
+    <div *ngIf="hasWordWithStep(null)">
+      <app-match-translation
+        [wordQueue]="wordQueue"
+        (handleStep)="handlerStep($event, 1)"
+      ></app-match-translation>
+    </div>
+
+    wordNumber:{{ wordNumber }}
+
+    <div *ngIf="!hasWordWithStep(null) && learnCategory.words[wordNumber]">
+      <app-choose-correct-option
+        *ngIf="learnCategory.words[wordNumber].currentStep == 1"
+        [wordQueue]="wordQueue"
+        [targetWord]="wordQueue[wordNumber]"
+        (handleStep)="handlerStep($event, 2)"
+      ></app-choose-correct-option>
+
+      <app-choose-correct-option
+        *ngIf="learnCategory.words[wordNumber].currentStep == 2"
+        [wordQueue]="wordQueue"
+        [targetWord]="wordQueue[wordNumber]"
+        (handleStep)="handlerStep($event, 3)"
+      ></app-choose-correct-option>
+
+      <app-choose-correct-option
+        *ngIf="learnCategory.words[wordNumber].currentStep == 3"
+        [wordQueue]="wordQueue"
+        [targetWord]="wordQueue[wordNumber]"
+        (handleStep)="handlerStep($event, 4)"
+      ></app-choose-correct-option>
+    </div>
+  </div>
+
+</div>
 
 <pre>
-{{ learnCategory$ | async | json }}
+{{ learnCategory | json }}
 </pre>
-
-<div *ngIf="learnCategory$ | async as learnCategory">
-<app-match-translation [words]="learnCategory.words" *ngIf="learnCategory.words.length"></app-match-translation>
-</div>
