@@ -20,6 +20,8 @@ import {MatchTranslationComponent} from "./pages/learning/steps/match-translatio
 import {
   ChooseCorrectOptionComponent
 } from "./pages/learning/steps/choose-correct-option/choose-correct-option.component";
+import {ChooseLettersComponent} from "./pages/learning/steps/choose-letters/choose-letters.component";
+import {WriteComponent} from "./pages/learning/steps/write/write.component";
 
 @NgModule({
   imports: [
@@ -31,6 +33,8 @@ import {
     CommonModule,
     MatchTranslationComponent,
     ChooseCorrectOptionComponent,
+    ChooseLettersComponent,
+    WriteComponent,
   ],
   declarations: [
     AppComponent,

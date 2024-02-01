@@ -37,6 +37,7 @@ export class StepsComponent {
 
   _nextWord(): void {
     this._filterLearnedWords()
+    this._checkFinishingCategory()
 
     if (!this.wordQueue.length) {
       this._getWords();
@@ -57,14 +58,9 @@ export class StepsComponent {
 
   handlerStep(currentWord: WordLearn, step: number): void {
     if (currentWord.learned && !currentWord.attempts) {
-      if (currentWord.currentStep !== step) {
-        this._learningService.addLearningHistory(currentWord.id, step).subscribe()
-        this._addCurrentStep(currentWord, step)
-      }
+      this._addCurrentStep(currentWord, step)
 
-      if (!this.hasWordWithStep(null)) {
-        this._nextWord()
-      }
+      this._nextWord()
     } else {
       this._moveToEnd(currentWord)
     }
@@ -73,7 +69,7 @@ export class StepsComponent {
   private _addCurrentStep(currentWord: WordLearn, step: number) {
     this.wordQueue.map(word => {
       if (word.id === currentWord.id) {
-        word.currentStep = !word.currentStep ? 1 : (parseInt(String((word.currentStep || step))) + 1);
+        word.currentStep = step;
       }
     });
   }
@@ -85,12 +81,15 @@ export class StepsComponent {
   }
 
   private _checkFinishingCategory() {
-    if (!this.wordQueue.length) {
-      alert('Category learned!')
+    if (this.learnCategory?.words) {
+      if (!this.wordQueue.length && this.learnCategory.words.every(w => w.currentStep === 4)) {
+        this._learningService.addLearningHistory(this.learnCategory.words.map(w => w.id), 4).subscribe()
+        alert('Category learned!')
+      }
     }
   }
 
-  hasWordWithStep(step: number | null):boolean {
+  hasWordWithStep(step: number | null): boolean {
     return this.wordQueue.some(word => word.currentStep === step);
   }
 }

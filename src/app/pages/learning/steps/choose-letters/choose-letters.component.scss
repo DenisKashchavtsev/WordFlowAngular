@@ -1,0 +1,32 @@
+.choose-letters {
+  display: flex;
+  flex-direction: column;
+
+  .choose-letters-result {
+    text-align: center;
+  }
+
+  .choose-letters-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 15px;
+
+  .choose-letters-item {
+
+    .choose-letters-btn-letter {
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #F9AD2B;
+      border: 1px solid #F9AD2B;
+      color: #ffffff;
+      padding: 5px 10px;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+      }
+    }
+  }
+}

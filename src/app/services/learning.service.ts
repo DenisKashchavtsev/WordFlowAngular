@@ -16,9 +16,9 @@ export class LearningService {
     return this._http.get(`${this._apiUrl}api/learn-category/${id}`);
   }
 
-  addLearningHistory(wordId: string, step: number): Observable<any> {
+  addLearningHistory(wordIds: string[], step: number): Observable<any> {
     return this._http.post(`${this._apiUrl}api/learning-histories`, {
-      'word_id': wordId,
+      'word_ids': wordIds,
       'step': step
     });
   }

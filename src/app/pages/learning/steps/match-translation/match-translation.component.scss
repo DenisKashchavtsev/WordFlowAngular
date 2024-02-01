@@ -2,12 +2,46 @@
   display: flex;
   flex-direction: column;
 
+
   .block_variants {
     display: flex;
     gap: 15px;
 
-    .btn_select_variant {
+    &.success {
+      input[type=radio]:checked ~ label {
+        border: 1px solid #abe3b0;
+        background-color: #abe3b0;
+      }
+    }
+
+    &.error {
+
+      input[type=radio]:checked ~ label {
+        border: 1px solid #ffc7c7;
+        background-color: #ffc7c7;
+      }
+    }
+    label {
       display: flex;
+      font-size: 16px;
+      border-radius: 15px;
+      background-color: transparent;
+      border: 1px solid #F9AD2B;
+      color: #4B4B4B;
+      padding: 20px 30px;
+      margin-bottom: 15px;
+      min-width: 120px;
+      transition: .3s;
+    }
+
+    input[type=radio] {
+      display: none;
+    }
+    input[type=radio]:checked ~ label {
+      background-color: #F9AD2B;
+      color: white;
     }
   }
+
+
 }

@@ -1,40 +1,44 @@
 <div class="learning">
-  <div *ngIf="learnCategory">
-    <div *ngIf="hasWordWithStep(null)">
-      <app-match-translation
-        [wordQueue]="wordQueue"
-        (handleStep)="handlerStep($event, 1)"
-      ></app-match-translation>
-    </div>
+        <app-write
+          [targetWord]="wordQueue[wordNumber]"
+          (handleStep)="handlerStep($event, 4)"
+        ></app-write>
 
-    wordNumber:{{ wordNumber }}
+<!--  <div *ngIf="learnCategory">-->
+<!--    <div *ngIf="hasWordWithStep(null)">-->
+<!--      <app-match-translation-->
+<!--        [wordQueue]="wordQueue"-->
+<!--        (handleStep)="handlerStep($event, 1)"-->
+<!--      ></app-match-translation>-->
+<!--    </div>-->
 
-    <div *ngIf="!hasWordWithStep(null) && learnCategory.words[wordNumber]">
-      <app-choose-correct-option
-        *ngIf="learnCategory.words[wordNumber].currentStep == 1"
-        [wordQueue]="wordQueue"
-        [targetWord]="wordQueue[wordNumber]"
-        (handleStep)="handlerStep($event, 2)"
-      ></app-choose-correct-option>
+<!--    <div *ngIf="!hasWordWithStep(null) && learnCategory.words[wordNumber]">-->
+<!--      <app-choose-correct-option-->
+<!--        *ngIf="learnCategory.words[wordNumber].currentStep == 1"-->
+<!--        [wordQueue]="wordQueue"-->
+<!--        [targetWord]="wordQueue[wordNumber]"-->
+<!--        (handleStep)="handlerStep($event, 2)"-->
+<!--      ></app-choose-correct-option>-->
 
-      <app-choose-correct-option
-        *ngIf="learnCategory.words[wordNumber].currentStep == 2"
-        [wordQueue]="wordQueue"
-        [targetWord]="wordQueue[wordNumber]"
-        (handleStep)="handlerStep($event, 3)"
-      ></app-choose-correct-option>
+<!--      <app-choose-letters-->
+<!--        *ngIf="learnCategory.words[wordNumber].currentStep == 2"-->
+<!--        [targetWord]="wordQueue[wordNumber]"-->
+<!--        (handleStep)="handlerStep($event, 3)"-->
+<!--      ></app-choose-letters>-->
 
-      <app-choose-correct-option
-        *ngIf="learnCategory.words[wordNumber].currentStep == 3"
-        [wordQueue]="wordQueue"
-        [targetWord]="wordQueue[wordNumber]"
-        (handleStep)="handlerStep($event, 4)"
-      ></app-choose-correct-option>
-    </div>
-  </div>
+<!--      <app-choose-correct-option-->
+<!--        *ngIf="learnCategory.words[wordNumber].currentStep == 3"-->
+<!--        [wordQueue]="wordQueue"-->
+<!--        [targetWord]="wordQueue[wordNumber]"-->
+<!--        (handleStep)="handlerStep($event, 4)"-->
+<!--      ></app-choose-correct-option>-->
+<!--     </div>-->
+<!--  </div>-->
 
 </div>
 
 <pre>
-{{ learnCategory | json }}
+      wordNumber:{{ wordNumber }}
+
+  {{ learnCategory | json }}
 </pre>

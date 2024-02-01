@@ -1,6 +1,22 @@
-.danger {
-  border: 1px solid red;
-}
-.success {
-  border: 1px solid green;
+.btn_select_variant {
+  font-size: 16px;
+  border-radius: 15px;
+  background-color: transparent;
+  border: 1px solid #F9AD2B;
+  color: #4B4B4B;
+  padding: 20px 30px;
+  margin-bottom: 15px;
+  min-width: 100%;
+  transition: .3s;
+
+  &.success {
+    border: 1px solid #abe3b0;
+    background-color: #abe3b0;
+  }
+
+  &.danger {
+    border: 1px solid #ffc7c7;
+    background-color: #ffc7c7;
+  }
+
 }

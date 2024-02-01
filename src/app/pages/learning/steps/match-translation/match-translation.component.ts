@@ -20,23 +20,20 @@ export class MatchTranslationComponent implements OnInit {
   @Input() wordQueue: WordLearn[] = []
   @Output() handleStep = new EventEmitter<WordLearn>();
 
-  public notification: { variant: string, status: boolean } | null = null;
+  public error: boolean | null = null;
   public sources: string[] = [];
   public translations: string[] = [];
-
   public buttonSource: string | null = null;
   public buttonTranslation: string | null = null;
-
   public nextAvailable: boolean = false;
 
   ngOnInit() {
     this._getVariants();
-    this.notification = null;
+    this.error = null;
     this.nextAvailable = true;
   }
 
   private _getVariants(): void {
-    console.log(this.wordQueue)
     this.sources = this.wordQueue
       .map(word => word.source)
       .sort(() => Math.random() - 0.5);
@@ -47,26 +44,28 @@ export class MatchTranslationComponent implements OnInit {
   }
 
   selectVariant() {
-    this.notification = null;
+    this.error = null;
 
     if (this.buttonSource && this.buttonTranslation) {
       let targetWord = this._checkAnswer()
       if (targetWord !== null) {
-        this.sources = this.sources.filter(word => word !== this.buttonSource);
-        this.translations = this.translations.filter(word => word !== this.buttonTranslation);
-
+        this.error = true
         targetWord.learned = true;
         this.handleStep.emit(targetWord);
 
         setTimeout(() => {
+          this.sources = this.sources.filter(word => word !== this.buttonSource);
+          this.translations = this.translations.filter(word => word !== this.buttonTranslation);
           this.buttonSource = null
           this.buttonTranslation = null
+          this.error = null
         }, 1000)
       } else {
-        console.log('error')
+        this.error = false
         setTimeout(() => {
           this.buttonSource = null
           this.buttonTranslation = null
+          this.error = null
         }, 1000)
       }
 
@@ -75,7 +74,6 @@ export class MatchTranslationComponent implements OnInit {
       }
     }
 
-    // this.notification = {variant: variant, status: false};
     return false;
   }
 

@@ -46,7 +46,7 @@ export class ChooseCorrectOptionComponent implements OnInit, OnChanges {
         .filter(word => word.id !== this.targetWord?.id)
         .map(word => word.translate)
         .splice(0, 4)
-        .concat(this.targetWord?.translate)
+        .concat(this.targetWord?.translate?? '')
         .sort(() => Math.random() - 0.5);
     }
   }

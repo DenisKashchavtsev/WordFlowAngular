@@ -1,0 +1,21 @@
+<div class="step choose-letters">
+
+  <div class="content">
+    <div class="source_word"><span>{{ targetWord?.source }}</span></div>
+
+    <div class="result">
+      {{ enteredWord }}
+    </div>
+
+    <div class="choose-letters-list">
+      <div *ngFor="let letter of letters; index as key" class="choose-letters-item" >
+        <button (click)="selectLetter(key, letter)"
+                [disabled]="disabledLetters[key]"
+                class="choose-letters-btn-letter"> {{ letter }} </button>
+      </div>
+    </div>
+  </div>
+
+  <button [disabled]="!nextAvailable" (click)="next()" class="btn_next">Next</button>
+
+</div>

@@ -1,0 +1,21 @@
+<div class="step write">
+
+  <div class="content">
+    <div class="source_word"><span>{{ targetWord?.source }}</span></div>
+
+    <div class="result" *ngIf="!error">
+      <input [(ngModel)]="enteredWord" class="entered-word" [ngClass]="nextAvailable ? 'correct-word' : ''">
+    </div>
+
+    <div class="error-block" *ngIf="error">
+      <div class="wrong-word result">{{ enteredWord }}</div>
+      <div class="correct-word result">{{ targetWord?.translate }}</div>
+    </div>
+
+  </div>
+
+  <button *ngIf="nextAvailable" (click)="next()" class="btn_next">Next</button>
+  <button *ngIf="!nextAvailable && !error" (click)="checkAnswer()" class="btn_next">Check</button>
+  <button *ngIf="error" (click)="tryAgain()" class="btn_next">Try Again</button>
+
+</div>

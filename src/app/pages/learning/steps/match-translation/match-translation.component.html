@@ -1,19 +1,20 @@
 <div class="step match_translation">
-  <div class="block_variants">
+  <div class="block_variants" [ngClass]="error != null ? (!error ? 'error' : 'success') : ''">
     <div class="block_variants_sources">
-      <div *ngFor="let source of sources">
-        <label class="btn_select_variant">{{ source }}
-          <input type="radio" name="source" [value]="source" [(ngModel)]="buttonSource" (change)="selectVariant()">
-        </label>
+      <div *ngFor="let source of sources; index as index">
+        <input [id]="'source' + index" type="radio" name="source" [value]="source" [(ngModel)]="buttonSource"
+               (change)="selectVariant()">
+        <label [for]="'source' + index" class="btn_select_variant">{{ source }}</label>
       </div>
     </div>
 
     <div class="block_variants_translations">
-      <div *ngFor="let translate of translations">
-        <label class="btn_select_variant">{{ translate }}
-          <input type="radio" name="Translate" [value]="translate" [(ngModel)]="buttonTranslation"
-                 (change)="selectVariant()">
-        </label>
+      <div *ngFor="let translate of translations; index as index">
+        <input [id]="'translate' + index" type="radio" name="Translate" [value]="translate"
+               [(ngModel)]="buttonTranslation"
+               (change)="selectVariant()">
+        <label [for]="'translate' + index" class="btn_select_variant">{{ translate }}</label>
+
       </div>
     </div>
   </div>
